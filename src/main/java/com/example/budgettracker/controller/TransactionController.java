@@ -1,20 +1,32 @@
 package com.example.budgettracker.controller;
+
 import com.example.budgettracker.model.Transaction;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-import java.util.List;
+import com.example.budgettracker.repository.TransactionRepository;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
 public class TransactionController {
 
+    private final TransactionRepository transactionRepository;
+
+    public TransactionController(TransactionRepository transactionRepository) {
+        this.transactionRepository = transactionRepository;
+    }
+
     @GetMapping("/transactions")
     public List<Transaction> getTransactions() {
-        return List.of(
-                new Transaction(1L, "Miete", 650.0, "EXPENSE", "2026-04-01"),
-                new Transaction(2L, "Gehalt", 1400.0, "INCOME", "2026-04-03"),
-                new Transaction(3L, "Einkauf", 45.99, "EXPENSE", "2026-04-05")
-        );
+        return transactionRepository.findAll();
+    }
+
+    @PostMapping("/transactions")
+    public Transaction createTransaction(@RequestBody Transaction transaction) {
+        return transactionRepository.save(transaction);
     }
 }
