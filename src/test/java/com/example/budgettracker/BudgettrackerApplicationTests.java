@@ -1,5 +1,6 @@
 package com.example.budgettracker;
 
+import com.example.budgettracker.controller.RootController;
 import com.example.budgettracker.model.Account;
 import com.example.budgettracker.model.Budget;
 import com.example.budgettracker.model.BudgetPeriod;
@@ -11,6 +12,9 @@ import com.example.budgettracker.model.SavingsGoal;
 import com.example.budgettracker.model.Transaction;
 import com.example.budgettracker.model.TransactionNote;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -119,5 +123,26 @@ class BudgettrackerApplicationTests {
 		assertEquals(1L, transactionNote.getTransactionId());
 		assertEquals("Paid in cash", transactionNote.getText());
 		assertEquals("2026-07-04", transactionNote.getCreatedDate());
+	}
+
+	@Test
+	void rootEndpointInfoCanBeCreated() {
+		RootController rootController = new RootController();
+
+		Map<String, Object> apiInfo = rootController.getApiInfo();
+
+		assertEquals("Budget Tracker Backend API is running", apiInfo.get("message"));
+		assertEquals(List.of(
+				"/transactions",
+				"/categories",
+				"/accounts",
+				"/budgets",
+				"/budget-periods",
+				"/recurring-transactions",
+				"/saving-goals",
+				"/payment-methods",
+				"/merchants",
+				"/transaction-notes"
+		), apiInfo.get("endpoints"));
 	}
 }
