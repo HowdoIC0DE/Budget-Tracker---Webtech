@@ -15,17 +15,19 @@ public class Budget {
     private String name;
     private String categoryName;
     private double amount;
-    private String period;
+    private String startDate;
+    private String endDate;
 
     public Budget() {
     }
 
-    public Budget(Long id, String name, String categoryName, double amount, String period) {
+    public Budget(Long id, String name, String categoryName, double amount, String startDate, String endDate) {
         this.id = id;
         this.name = name;
         this.categoryName = categoryName;
         this.amount = amount;
-        this.period = period;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     public Long getId() {
@@ -44,8 +46,12 @@ public class Budget {
         return amount;
     }
 
-    public String getPeriod() {
-        return period;
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
     }
 
     public void setId(Long id) {
@@ -64,7 +70,11 @@ public class Budget {
         this.amount = amount;
     }
 
-    public void setPeriod(String period) {
-        this.period = period;
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
     }
 }

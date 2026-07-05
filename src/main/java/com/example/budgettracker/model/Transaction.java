@@ -16,6 +16,11 @@ public class Transaction {
     private double amount;
     private String type;
     private String date;
+    private Long categoryId;
+    private Long accountId;
+    private Long paymentMethodId;
+    private Long merchantId;
+    private String note;
 
     public Transaction() {
     }
@@ -48,6 +53,26 @@ public class Transaction {
         return date;
     }
 
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public Long getAccountId() {
+        return accountId;
+    }
+
+    public Long getPaymentMethodId() {
+        return paymentMethodId;
+    }
+
+    public Long getMerchantId() {
+        return merchantId;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -66,5 +91,25 @@ public class Transaction {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public void setAccountId(Long accountId) {
+        this.accountId = accountId;
+    }
+
+    public void setPaymentMethodId(Long paymentMethodId) {
+        this.paymentMethodId = paymentMethodId;
+    }
+
+    public void setMerchantId(Long merchantId) {
+        this.merchantId = merchantId;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }

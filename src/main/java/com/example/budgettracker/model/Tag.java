@@ -6,24 +6,22 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class BudgetPeriod {
+public class Tag {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
-    private String startDate;
-    private String endDate;
+    private String color;
 
-    public BudgetPeriod() {
+    public Tag() {
     }
 
-    public BudgetPeriod(Long id, String name, String startDate, String endDate) {
+    public Tag(Long id, String name, String color) {
         this.id = id;
         this.name = name;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.color = color;
     }
 
     public Long getId() {
@@ -34,12 +32,8 @@ public class BudgetPeriod {
         return name;
     }
 
-    public String getStartDate() {
-        return startDate;
-    }
-
-    public String getEndDate() {
-        return endDate;
+    public String getColor() {
+        return color;
     }
 
     public void setId(Long id) {
@@ -50,11 +44,7 @@ public class BudgetPeriod {
         this.name = name;
     }
 
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-    }
-
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
+    public void setColor(String color) {
+        this.color = color;
     }
 }

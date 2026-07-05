@@ -3,14 +3,14 @@ package com.example.budgettracker;
 import com.example.budgettracker.controller.RootController;
 import com.example.budgettracker.model.Account;
 import com.example.budgettracker.model.Budget;
-import com.example.budgettracker.model.BudgetPeriod;
 import com.example.budgettracker.model.Category;
+import com.example.budgettracker.model.GoalContribution;
 import com.example.budgettracker.model.Merchant;
 import com.example.budgettracker.model.PaymentMethod;
 import com.example.budgettracker.model.RecurringTransaction;
 import com.example.budgettracker.model.SavingsGoal;
+import com.example.budgettracker.model.Tag;
 import com.example.budgettracker.model.Transaction;
-import com.example.budgettracker.model.TransactionNote;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -37,6 +37,29 @@ class BudgettrackerApplicationTests {
 	}
 
 	@Test
+	void transactionCanStoreOptionalFinanceDetails() {
+		Transaction transaction = new Transaction(
+				null,
+				"Groceries",
+				42.5,
+				"EXPENSE",
+				"2026-07-05"
+		);
+
+		transaction.setCategoryId(1L);
+		transaction.setAccountId(2L);
+		transaction.setPaymentMethodId(3L);
+		transaction.setMerchantId(4L);
+		transaction.setNote("Weekly groceries");
+
+		assertEquals(1L, transaction.getCategoryId());
+		assertEquals(2L, transaction.getAccountId());
+		assertEquals(3L, transaction.getPaymentMethodId());
+		assertEquals(4L, transaction.getMerchantId());
+		assertEquals("Weekly groceries", transaction.getNote());
+	}
+
+	@Test
 	void categoryCanBeCreated() {
 		Category category = new Category(null, "Lebensmittel", "EXPENSE");
 
@@ -55,21 +78,13 @@ class BudgettrackerApplicationTests {
 
 	@Test
 	void budgetCanBeCreated() {
-		Budget budget = new Budget(null, "Monthly Groceries", "Lebensmittel", 350.0, "2026-07");
+		Budget budget = new Budget(null, "Monthly Groceries", "Lebensmittel", 350.0, "2026-07-01", "2026-07-31");
 
 		assertEquals("Monthly Groceries", budget.getName());
 		assertEquals("Lebensmittel", budget.getCategoryName());
 		assertEquals(350.0, budget.getAmount());
-		assertEquals("2026-07", budget.getPeriod());
-	}
-
-	@Test
-	void budgetPeriodCanBeCreated() {
-		BudgetPeriod budgetPeriod = new BudgetPeriod(null, "July 2026", "2026-07-01", "2026-07-31");
-
-		assertEquals("July 2026", budgetPeriod.getName());
-		assertEquals("2026-07-01", budgetPeriod.getStartDate());
-		assertEquals("2026-07-31", budgetPeriod.getEndDate());
+		assertEquals("2026-07-01", budget.getStartDate());
+		assertEquals("2026-07-31", budget.getEndDate());
 	}
 
 	@Test
@@ -101,6 +116,16 @@ class BudgettrackerApplicationTests {
 	}
 
 	@Test
+	void goalContributionCanBeCreated() {
+		GoalContribution goalContribution = new GoalContribution(null, 1L, 100.0, "2026-07-05", "Monthly saving");
+
+		assertEquals(1L, goalContribution.getSavingsGoalId());
+		assertEquals(100.0, goalContribution.getAmount());
+		assertEquals("2026-07-05", goalContribution.getDate());
+		assertEquals("Monthly saving", goalContribution.getNote());
+	}
+
+	@Test
 	void paymentMethodCanBeCreated() {
 		PaymentMethod paymentMethod = new PaymentMethod(null, "Debit Card", "CARD");
 
@@ -117,12 +142,11 @@ class BudgettrackerApplicationTests {
 	}
 
 	@Test
-	void transactionNoteCanBeCreated() {
-		TransactionNote transactionNote = new TransactionNote(null, 1L, "Paid in cash", "2026-07-04");
+	void tagCanBeCreated() {
+		Tag tag = new Tag(null, "Important", "#ffcc00");
 
-		assertEquals(1L, transactionNote.getTransactionId());
-		assertEquals("Paid in cash", transactionNote.getText());
-		assertEquals("2026-07-04", transactionNote.getCreatedDate());
+		assertEquals("Important", tag.getName());
+		assertEquals("#ffcc00", tag.getColor());
 	}
 
 	@Test
@@ -137,12 +161,12 @@ class BudgettrackerApplicationTests {
 				"/categories",
 				"/accounts",
 				"/budgets",
-				"/budget-periods",
-				"/recurring-transactions",
 				"/saving-goals",
+				"/goal-contributions",
+				"/recurring-transactions",
 				"/payment-methods",
 				"/merchants",
-				"/transaction-notes"
+				"/tags"
 		), apiInfo.get("endpoints"));
 	}
 }

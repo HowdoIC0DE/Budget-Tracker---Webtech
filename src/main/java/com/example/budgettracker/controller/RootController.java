@@ -20,12 +20,12 @@ public class RootController {
                         "/categories",
                         "/accounts",
                         "/budgets",
-                        "/budget-periods",
-                        "/recurring-transactions",
                         "/saving-goals",
+                        "/goal-contributions",
+                        "/recurring-transactions",
                         "/payment-methods",
                         "/merchants",
-                        "/transaction-notes"
+                        "/tags"
                 )
         );
     }
